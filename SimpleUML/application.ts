@@ -1,72 +1,75 @@
 ///<reference path="Typescript/node.d.ts" />
+"use strict";
 
-var app = require('app');  // Module to control application life.
-var BrowserWindow = require('browser-window');  // Module to create native browser window.
-var Menu = require('menu');
+var app: any = require("app");  // module to control application life.
+var BrowserWindow: any = require("browser-window");  // module to create native browser window.
+var Menu: any = require("menu");
 
-import aboutInfo  = require('./aboutinfo');
+import aboutInfo  = require("./aboutinfo");
 
 export class Application {
 
-	private mainWindow : any;
-	
-	constructor() {
-	
-		this.mainWindow = null;
-			
-		// Quit when all windows are closed.
-		app.on('window-all-closed', () => this.WindowAllClose() );
+	private mainWindow: any;
 
-		// This method will be called when Electron has done everything
+	public Start(): void {
+
+		this.mainWindow = null;
+
+		// quit when all windows are closed.
+		app.on("window-all-closed", () => this.WindowAllClose() );
+
+		// this method will be called when Electron has done everything
 		// initialization and ready for creating browser windows.
-		app.on('ready', () => this.Ready() );
-	}	
-	
-	public WindowAllClose() {
-		if (process.platform != 'darwin')
-    		app.quit();
+		app.on("ready", () => this.Ready() );
 	}
-	
-	public Ready() {
-		// Create the browser window.
-  		this.mainWindow = new BrowserWindow({width: 800, height: 600});
-		  
+
+	private WindowAllClose(): void {
+		if (process.platform !== "darwin")
+		{
+			app.quit();
+		}
+	}
+
+	private Ready(): void {
+		// create the browser window.
+		this.mainWindow = new BrowserWindow({width: 800, height: 600});
+
 		this.BuildMenu();
 
-  		// and load the index.html of the app.
-  		this.mainWindow.loadUrl('file://' + __dirname + '/index.html');
+		// and load the index.html of the app.
+		this.mainWindow.loadUrl("file://" + __dirname + "/index.html");
 
-  		// Emitted when the window is closed.
-  		this.mainWindow.on('closed', function() {
-		    // Dereference the window object, usually you would store windows
-		    // in an array if your app supports multi windows, this is the time
-		    // when you should delete the corresponding element.
-		    this.mainWindow = null;
-  		});
+		// emitted when the window is closed.
+		this.mainWindow.on("closed", () => {
+			// dereference the window object, usually you would store windows
+			// in an array if your app supports multi windows, this is the time
+			// when you should delete the corresponding element.
+			this.mainWindow = null;
+		});
 	}
-	
-	public BuildMenu() {
-	
-		var template = [
+
+	private BuildMenu(): void {
+
+		var template: any = [
 			{
 			submenu: [
-			  {
-			    label: 'Quit',
-			    accelerator: 'Command+Q',
-        		click: () => { app.quit(); }
-			  },  
+				{
+					label: "Quit",
+					accelerator: "Command+Q",
+					click: (): void => { app.quit(); }
+				},
 			]},
 			{
-				label: 'Help',
+				label: "Help",
 				submenu: [
-					{ 
-						label:'Versions',
-				 		click: () => aboutInfo.AboutInfo.DisplayExtra(this.mainWindow)
+					{
+						label: "Versions",
+						click: (): void  => aboutInfo.AboutInfo.DisplayExtra(this.mainWindow)
 					}
 				]
 			}];
-		
-		var menu = Menu.buildFromTemplate(template);	
-		Menu.setApplicationMenu(menu); // Must be called within app.on('ready', function(){ ... });
+
+		var menu: any = Menu.buildFromTemplate(template);
+		Menu.setApplicationMenu(menu);
 	}
 }
