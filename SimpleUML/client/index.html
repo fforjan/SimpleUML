@@ -1,11 +1,58 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using io.js <script>document.write(process.version);</script>
-    and Electron <script>document.write(process.versions['electron']);</script>.
-  </body>
-</html>
+  <meta charset='utf-8'/>
+  <script src='./scripts/jquery-2.0.0.min.js'></script>
+  <script src='./scripts/coffee-script.js'></script>
+  <script src='./scripts/jumly.min.js'></script>
+    <link href="main.css" rel="stylesheet">
+</head>
+<body>
+   
+    <script>
+    var updateJumly = function() {
+       $('footer#status').text('ok');
+      try {
+        JUMLY["eval"]($("textarea#umlDocument"), {
+          into: $("div#renderer")
+        });
+     } catch (_error) {
+        ex = _error;
+        $('footer#status').text(ex);
+     }
+    };
+  </script>
+</body>
+
+<div class="wrapper">
+	<div class="middle">
+
+		<div class="container">
+			<main class="content">
+				
+        <textarea id='umlDocument'>
+@found "You", ->
+  @message "get", "JUMLY"
+  </textarea><br/>
+  <button onclick="updateJumly()">Update !</button>
+ 
+  <div id='renderer'></div>
+        </main><!-- .content -->
+		</div><!-- .container-->
+
+		<aside class="left-sidebar">
+			
+      Sample 1<br/>
+      Sample 2<br/>
+      Sample 3<br/>
+		</aside><!-- .left-sidebar -->
+
+	</div><!-- .middle-->
+
+</div><!-- .wrapper -->
+
+<footer class="footer" id='status'>
+	
+  </footer><!-- .footer -->
+
+ </html>
