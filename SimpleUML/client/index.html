@@ -5,11 +5,14 @@
   <script src='./scripts/jquery-2.0.0.min.js'></script>
   <script src='./scripts/coffee-script.js'></script>
   <script src='./scripts/jumly.min.js'></script>
-    <link href="main.css" rel="stylesheet">
+  <link href="main.css" rel="stylesheet">
 </head>
 <body>
    
     <script>
+var sample1 = '@found "User", ->\n  @message "search", "Browser", ->\n    @create asynchronous:"connection", "Web Server"\n    @message "GET", "Web Server", ->\n      @message "find the resource", -> @reply ""\n    @reply "", "User"';
+var sample2 = '@found "You", ->\n  @alt\n    "[found]": ->\n      @loop ->\n        @message "request", "HTTP Server"\n        @note "NOTE: This doesn\'t make sense :)"\n    "[missing]": ->\n      @message "new", "HTTP Session"\n  @ref "respond resource"';
+
     var updateJumly = function() {
        $('footer#status').text('ok');
       try {
@@ -21,6 +24,12 @@
         $('footer#status').text(ex);
      }
     };
+    
+    var loadDocument = function(document) {
+      $("textarea#umlDocument").text(document);
+      updateJumly();
+    };
+    
   </script>
 </body>
 
@@ -41,11 +50,9 @@
 		</div><!-- .container-->
 
 		<aside class="left-sidebar">
-			
-      Sample 1<br/>
-      Sample 2<br/>
-      Sample 3<br/>
-		</aside><!-- .left-sidebar -->
+			<div class='file' onclick="loadDocument(sample1)">Sample 1</div>
+      <div class='file' onclick="loadDocument(sample2)">Sample 2</div>
+      </aside><!-- .left-sidebar -->
 
 	</div><!-- .middle-->
 

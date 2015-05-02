@@ -11,6 +11,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 body {
 	font: 12px/18px Arial, sans-serif;
 	height: 100%;
+	background: deepskyblue;
 }
 .wrapper {
 	width: 100%;
@@ -51,7 +52,21 @@ textarea {width:100%; padding-right: 120px; height: 300px}
 	height:inherit;
 	margin-left: -100%;
 	position: relative;
-	background: #B5E3FF;
+	line-height:30px;
+}
+
+.file {
+	color: white;
+	padding: 5px;
+}
+
+.seleceted {
+	background: deepskyblue
+}
+
+.file:hover {
+	background: lightskyblue;
+	cursor:pointer;
 }
 
 
@@ -61,6 +76,8 @@ textarea {width:100%; padding-right: 120px; height: 300px}
 	margin: -40px auto 0;
 	width: inherit;
 	height: 40px;
-	background: #BFF08E;
+	background: blue;
 	position: relative;
+	padding-left: 50px;
+	color: yellow;
 }
