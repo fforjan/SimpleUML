@@ -1,8 +1,7 @@
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 var app = require('app');  // Module to control application life.
-var dialog = require('dialog');
-//var remote = require('remote');
 var Menu = require('menu');
+import aboutInfo  = require('./aboutinfo');
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -46,10 +45,6 @@ class Application {
   		});
 	}
 	
-	public DisplayExtra() {
-		dialog.showMessageBox(this.mainWindow, { "type": "info", "message":"hello world", "buttons": ["Close"]});
-	}
-	
 	public BuildMenu() {
 	
 		var template = [
@@ -65,7 +60,7 @@ class Application {
 				label: 'Help',
 				submenu: [
 					{ label:'extra',
-				 	click: () => this.DisplayExtra()
+				 	click: () => aboutInfo.AboutInfo.DisplayExtra(this.mainWindow)
 					}
 				]
 			}];
