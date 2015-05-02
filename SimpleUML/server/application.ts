@@ -10,9 +10,11 @@ import aboutInfo  = require("./aboutinfo");
 export class Application {
 
 	private mainWindow: any;
-	
-	public constructor(private startURI: string)
+	private startURI: string;
+
+	public constructor(startURI: string)
 	{
+		this.startURI  = startURI;
 	}
 
 	public Start(): void {
@@ -40,7 +42,6 @@ export class Application {
 
 		this.BuildMenu();
 
-		var uri: string = 
 		// and load the index.html of the app.
 		this.mainWindow.loadUrl(this.startURI);
 
