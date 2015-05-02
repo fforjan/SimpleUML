@@ -1,6 +1,7 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 var Menu = require('menu');
+
 import aboutInfo  = require('./aboutinfo');
 
 export class Application {
@@ -46,18 +47,19 @@ export class Application {
 	
 		var template = [
 			{
-			label: 'Electron',
 			submenu: [
 			  {
-			    label: 'About Electron',
-			    selector: 'orderFrontStandardAboutPanel:'
+			    label: 'Quit',
+			    accelerator: 'Command+Q',
+        		click: () => { app.quit(); }
 			  },  
 			]},
 			{
 				label: 'Help',
 				submenu: [
-					{ label:'extra',
-				 	click: () => aboutInfo.AboutInfo.DisplayExtra(this.mainWindow)
+					{ 
+						label:'Versions',
+				 		click: () => aboutInfo.AboutInfo.DisplayExtra(this.mainWindow)
 					}
 				]
 			}];
