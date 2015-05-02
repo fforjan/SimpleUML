@@ -1,11 +1,11 @@
-///<reference path="Typescript/node.d.ts" />
+///<reference path="server/Typescript/node.d.ts" />
 "use strict";
 
 var app: any = require("app");  // module to control application life.
 var BrowserWindow: any = require("browser-window");  // module to create native browser window.
 var Menu: any = require("menu");
 
-import aboutInfo  = require("./aboutinfo");
+import aboutInfo  = require("./server/aboutinfo");
 
 export class Application {
 
