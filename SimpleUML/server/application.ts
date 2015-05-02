@@ -1,15 +1,19 @@
-///<reference path="server/Typescript/node.d.ts" />
+///<reference path="Typescript/node.d.ts" />
 "use strict";
 
 var app: any = require("app");  // module to control application life.
 var BrowserWindow: any = require("browser-window");  // module to create native browser window.
 var Menu: any = require("menu");
 
-import aboutInfo  = require("./server/aboutinfo");
+import aboutInfo  = require("./aboutinfo");
 
 export class Application {
 
 	private mainWindow: any;
+	
+	public constructor(private startURI: string)
+	{
+	}
 
 	public Start(): void {
 
@@ -36,8 +40,9 @@ export class Application {
 
 		this.BuildMenu();
 
+		var uri: string = 
 		// and load the index.html of the app.
-		this.mainWindow.loadUrl("file://" + __dirname + "/index.html");
+		this.mainWindow.loadUrl(this.startURI);
 
 		// emitted when the window is closed.
 		this.mainWindow.on("closed", () => {
