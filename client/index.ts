@@ -1,5 +1,5 @@
-///<reference path="Typescript/jquery.d.ts" />
-///<reference path="Typescript/jumly.d.ts" />
+///<reference path="../Typescript/jquery.d.ts" />
+///<reference path="../Typescript/jumly.d.ts" />
 "use strict";
 
 /* tslint:disable:no-unused-variable */
@@ -45,12 +45,6 @@ function getUserHome(): string {
     return process.env[(process.platform === "win32") ? "USERPROFILE" : "HOME"];
 }
 
-function endWith(s: string, suffix: string): boolean {
-    "use strict";
-
-    return s.indexOf(suffix, s.length - suffix.length) !== -1;
-}
-
 function getYumlyDocuments(): string[] {
     "use strict";
 
@@ -60,7 +54,7 @@ function getYumlyDocuments(): string[] {
 
     for ( var i: number = 0; i < files.length; i++) {
           var file: string = files[i];
-          if (endWith(file, ".jumly")) {
+          if (Documents.JumlyDocument.IsJumlyDocument(file)) {
               list.push(file);
           }
     }

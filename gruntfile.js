@@ -6,8 +6,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-mkdir');
     
-    var tsSourceFiles = ['server/**/*.ts','client/**/*.ts', 'server.ts', '!**/*d.ts'];
-    var packageContentSrcFile = ["package.json", "server.js",'server/**/*', 'client/**/*', '!**/*d.ts', '!**/Typescript/*'];
+    var tsSourceFiles = ['server/**/*.ts','client/**/*.ts', 'server.ts'];
+    var packageContentSrcFile = ["package.json", "server.js",'server/**/*', 'client/**/*'];
     var electronVersion = "v0.25.2";
     
     var electronDarwin = "https://github.com/atom/electron/releases/download/" +electronVersion +

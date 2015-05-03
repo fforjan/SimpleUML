@@ -1,4 +1,4 @@
-///<reference path="Typescript/package.json.d.ts"/>
+///<reference path="../Typescript/package.json.d.ts"/>
 "use strict";
 
 var dialog: any = require("dialog");

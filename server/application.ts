@@ -1,4 +1,4 @@
-///<reference path="Typescript/node.d.ts" />
+///<reference path="../Typescript/node.d.ts" />
 "use strict";
 
 var app: any = require("app");  // module to control application life.
