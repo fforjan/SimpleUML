@@ -31,3 +31,4 @@ node_modules
 
 #distribution directory
 dist
+tmp

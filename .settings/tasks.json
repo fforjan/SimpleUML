@@ -89,6 +89,8 @@
 		{
 			"taskName": "tslint",
 			
+			"isTestCommand": true,
+			
 			// Show the output window only if unrecognized errors occur.
 			"showOutput": "always",
 			// Use the standard less compilation problem matcher.
