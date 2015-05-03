@@ -25,5 +25,6 @@ module.exports = function (grunt) {
     });
  
     grunt.registerTask('default', ['typescript']);
+    grunt.registerTask('travis', ['typescript', 'tslint']);
  
 };
