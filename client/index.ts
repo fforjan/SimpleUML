@@ -1,5 +1,6 @@
 ///<reference path="../Typescript/jquery.d.ts" />
 ///<reference path="../Typescript/jumly.d.ts" />
+
 "use strict";
 
 /* tslint:disable:no-unused-variable */
@@ -33,7 +34,7 @@ function setJumlyDocumentContent(document: string): void {
       renderJumlyDocument();
 };
 
-function loadJumlyDocument(node: JQuery) {
+function loadJumlyDocument(node: JQuery): void {
    "use strict";
     var attachDocument: Documents.JumlyDocument = jQuery.data( document.body, "jumlyDocument");
     attachDocument.Load();
@@ -47,7 +48,7 @@ function getUserHome(): string {
 
 function setDocuments(): void {
     "use strict";
-    
+
     var jumlyDocuments: Documents.JumlyDocument[] = Documents.JumlyDocument.IdentifyJumlyDocuments(getUserHome());
 
     for ( var i: number = 0; i < jumlyDocuments.length; i++) {
@@ -58,7 +59,7 @@ function setDocuments(): void {
       });
 
       jQuery.data( document.body, "jumlyDocument", jumlyDocuments[i] );
-      
+
       newFile.insertBefore( $( "#lastFileAnchor" ) );
     }
 }
