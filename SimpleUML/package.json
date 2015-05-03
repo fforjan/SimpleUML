@@ -7,8 +7,22 @@
     "email": "fforjan@free.fr",
     "url": "http://github.com/fforjan/"
   },
+  "description": "Trying to have a simple UML editor based on TypeScript/electron and developed with Visual Studio Code",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fforjan/SimpleUML.git"
+  },
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/fforjan/SimpleUML/issues"
+  },
+  "homepage": "https://github.com/fforjan/SimpleUML",
   "devDependencies": {
-    "electron-prebuilt": "^0.25.1-1"
+    "electron-prebuilt": "^0.25.1-1",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-typescript": "^0.6.1",
+    "typescript": "^1.4.1"
   },
   "dependencies": {}
 }

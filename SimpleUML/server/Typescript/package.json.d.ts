@@ -1,11 +1,11 @@
 interface Person {
-	name: string,
-	email:string,
-	url: string,
+	name: string;
+	email:string;
+	url: string;
 }
 
 interface Package {
-	name : string,
-	version : string,
-	author: Person
+	name : string;
+	version : string;
+	author: Person;
 }
