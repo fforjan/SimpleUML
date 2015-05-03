@@ -38,7 +38,7 @@ export class Application {
 
 	private Ready(): void {
 		// create the browser window.
-		this.mainWindow = new BrowserWindow({width: 800, height: 800, });
+		this.mainWindow = new BrowserWindow({width: 800, height: 800});
 
 		this.BuildMenu();
 
