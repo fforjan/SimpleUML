@@ -12,7 +12,9 @@ module.exports = function (grunt) {
     
     var electronDarwin = "https://github.com/atom/electron/releases/download/" +electronVersion +
                            "/electron-"+ electronVersion + "-darwin-x64.zip";
-    
+    var electronWindows = "https://github.com/atom/electron/releases/download/" +electronVersion +
+                           "/electron-"+ electronVersion + "-win32-ia32.zip";
+                           
     grunt.initConfig({
         pkg: grunt.file.readJSON('./package.json'),
         typescript: {
@@ -37,6 +39,11 @@ module.exports = function (grunt) {
                     files: [
                         {expand: true, src: packageContentSrcFile, dest: 'dist/darwin/Electron.app/Contents/Resources/app/', filter: 'isFile'}
                     ]
+            },
+            deployContentWindows : {
+                    files: [
+                        {expand: true, src: packageContentSrcFile, dest: 'dist/windows/resources/app/', filter: 'isFile'}
+                    ]
             }
         },
         wget: {
@@ -44,13 +51,25 @@ module.exports = function (grunt) {
             files: {
               'tmp/electronDarwin.zip': electronDarwin,
             }
+          },
+          electronWindows: {
+            files: {
+              'tmp/electronWindows.zip': electronWindows,
+            }
           }
         },
          exec: {
              unzipElectronDarwin: {
-                 
-                    command: 'unzip tmp/electronDarwin.zip -d dist/darwin/'
-                 
+                    command: 'unzip -o tmp/electronDarwin.zip -d dist/darwin/'
+             },
+             unzipElectronWindows: {
+                    command: 'unzip -o tmp/electronWindows.zip -d dist/windows/'
+             },
+             zipSimpleUMLDarwin: {
+                    command: 'cd ./dist/darwin; zip -ry ../SimpleUML-darwin-x64.zip .'
+             },
+             zipSimpleUMLWindows: {
+                    command: 'cd ./dist/windows; zip -ry ../SimpleUML-windows-x32.zip .'
              }
          },
          mkdir: {
@@ -65,10 +84,14 @@ module.exports = function (grunt) {
 
 
     grunt.registerTask('extractElectronDarwin', ['wget:electronDarwin', 'exec:unzipElectronDarwin']);
-    grunt.registerTask('make-dist-darwin', ['mkdir:dist', 'extractElectronDarwin', 'copy:deployContentDarwin']);
+    grunt.registerTask('extractElectronWindows', ['wget:electronWindows', 'exec:unzipElectronWindows']);
     
+    grunt.registerTask('make-dist-darwin', ['mkdir:dist', 'extractElectronDarwin', 'copy:deployContentDarwin','exec:zipSimpleUMLDarwin']);
+    grunt.registerTask('make-dist-windows', ['mkdir:dist', 'extractElectronWindows', 'copy:deployContentWindows', 'exec:zipSimpleUMLWindows']);
     
-    grunt.registerTask('default', ['typescript', 'deploy-source']);
+    grunt.registerTask('make-dist', ['make-dist-darwin','make-dist-windows']);
+    
+    grunt.registerTask('default', ['typescript']);
     grunt.registerTask('travis', ['typescript', 'tslint']);
  
 };
