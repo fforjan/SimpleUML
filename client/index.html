@@ -13,9 +13,11 @@
 <table>
   <tr>
     <td rowspan=2 class='left'>
-      <div class='file' onclick="loadDocument(sample1)">Sample 1</div>
-      <div class='file' onclick="loadDocument(sample2)">Sample 2</div>
-        <button onclick="updateJumly()">Update !</button>
+      <div class='file' onclick="setJumlyDocumentContent(sample1)">Sample 1</div>
+      <div class='file' onclick="setJumlyDocumentContent(sample2)">Sample 2</div>
+  
+      <div id='lastFileAnchor'></div>
+      <button onclick="renderJumlyDocument()">Update !</button>
     </td>
     <td class='mainTop'>
       <textarea id='umlDocument'></textarea><br/>
