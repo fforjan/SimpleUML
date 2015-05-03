@@ -22,6 +22,6 @@ function updateJumly(): void {
 function loadDocument(document: string): void {
     "use strict";
 
-      $("textarea#umlDocument").text(document);
+      $("textarea#umlDocument").val(document);
       updateJumly();
     };
