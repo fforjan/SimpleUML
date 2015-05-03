@@ -23,17 +23,20 @@ td.left {
 }
 
 td.mainTop {
-	height:380px;
+	padding: 3px;
+	height:370px;
 	background: blue;
 }
 
 td.mainBottom {
 	height:370px;
 	background: yellow;
-}
-
-div.renderer {
 	overflow:auto;
+}
+textarea {
+	width: 100%;
+	height: 100%;
+	resize: none;
 }
 
 td.status {

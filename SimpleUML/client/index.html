@@ -38,10 +38,10 @@ var sample2 = '@found "You", ->\n  @alt\n    "[found]": ->\n      @loop ->\n    
     <td rowspan=2 class='left'>
       <div class='file' onclick="loadDocument(sample1)">Sample 1</div>
       <div class='file' onclick="loadDocument(sample2)">Sample 2</div>
+        <button onclick="updateJumly()">Update !</button>
     </td>
     <td class='mainTop'>
       <textarea id='umlDocument'></textarea><br/>
-      <button onclick="updateJumly()">Update !</button>
     </td>
   </tr>
   <tr>
@@ -50,7 +50,7 @@ var sample2 = '@found "You", ->\n  @alt\n    "[found]": ->\n      @loop ->\n    
       </td>
   </tr>
   <tr>
-    <td class='status' rowspan="2">
+    <td class='status' colspan=2>
       <div id='status'/>
     </td>
   </tr>
