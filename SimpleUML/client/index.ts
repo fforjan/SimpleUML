@@ -5,7 +5,7 @@
 var sample1: string = "@found \"User\", ->\n  @message \"search\", \"Browser\", ->\n    @create asynchronous:\"connection\", \"Web Server\"\n    @message \"GET\", \"Web Server\", ->\n      @message \"find the resource\", -> @reply \"\"\n    @reply \"\", \"User\"";
 var sample2: string = "@found \"You\", ->\n  @alt\n    \"[found]\": ->\n      @loop ->\n        @message \"request\", \"HTTP Server\"\n        @note \"NOTE: This doesn\'t make sense :)\"\n    \"[missing]\": ->\n      @message \"new\", \"HTTP Session\"\n  @ref \"respond resource\"";
 
-export function updateJumly(): void {
+function updateJumly(): void {
     "use strict";
 
        $("div#status").text("ok");
@@ -19,7 +19,7 @@ export function updateJumly(): void {
      }
     };
 
-export function loadDocument(document: string): void {
+function loadDocument(document: string): void {
     "use strict";
 
       $("textarea#umlDocument").text(document);
