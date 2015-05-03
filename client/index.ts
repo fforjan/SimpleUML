@@ -31,13 +31,13 @@ function setJumlyDocumentContent(document: string): void {
 
       $("textarea#umlDocument").val(document);
       renderJumlyDocument();
-    };
+};
 
-function loadJumlyDocument(path: string): void {
-    "use strict";
-
-    var content: string = fs.readFileSync(getUserHome() + "/" + path);
-    setJumlyDocumentContent(content);
+function loadJumlyDocument(node: JQuery) {
+   "use strict";
+    var attachDocument: Documents.JumlyDocument = jQuery.data( document.body, "jumlyDocument");
+    attachDocument.Load();
+    setJumlyDocumentContent(attachDocument.Content);
 }
 
 function getUserHome(): string {
@@ -45,34 +45,20 @@ function getUserHome(): string {
     return process.env[(process.platform === "win32") ? "USERPROFILE" : "HOME"];
 }
 
-function getYumlyDocuments(): string[] {
-    "use strict";
-
-    var files: string[] = fs.readdirSync(getUserHome());
-
-    var list: string[] = [];
-
-    for ( var i: number = 0; i < files.length; i++) {
-          var file: string = files[i];
-          if (Documents.JumlyDocument.IsJumlyDocument(file)) {
-              list.push(file);
-          }
-    }
-
-    return list;
-}
-
 function setDocuments(): void {
     "use strict";
-    var yumlyDocuments: string[] = getYumlyDocuments();
+    
+    var jumlyDocuments: Documents.JumlyDocument[] = Documents.JumlyDocument.IdentifyJumlyDocuments(getUserHome());
 
-    for ( var i: number = 0; i < yumlyDocuments.length; i++) {
+    for ( var i: number = 0; i < jumlyDocuments.length; i++) {
       var newFile: JQuery = $( "<div/>", {
       "class": "file",
-      text: yumlyDocuments[i],
-      onclick: "loadJumlyDocument(\"" + yumlyDocuments[i] + "\")"
+      text: jumlyDocuments[i].Name,
+      onclick: "loadJumlyDocument(this)"
       });
 
+      jQuery.data( document.body, "jumlyDocument", jumlyDocuments[i] );
+      
       newFile.insertBefore( $( "#lastFileAnchor" ) );
     }
 }

@@ -12,6 +12,7 @@ module Documents {
 		
 		public constructor(documentName : string, documentPath: string) {
 			this.path = documentPath;
+			this.documentName = documentName;
 		}
 		
 		public get Name() : string {
