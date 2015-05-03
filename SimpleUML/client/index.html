@@ -14,14 +14,14 @@ var sample1 = '@found "User", ->\n  @message "search", "Browser", ->\n    @creat
 var sample2 = '@found "You", ->\n  @alt\n    "[found]": ->\n      @loop ->\n        @message "request", "HTTP Server"\n        @note "NOTE: This doesn\'t make sense :)"\n    "[missing]": ->\n      @message "new", "HTTP Session"\n  @ref "respond resource"';
 
     var updateJumly = function() {
-       $('footer#status').text('ok');
+       $('div#status').text('ok');
       try {
         JUMLY["eval"]($("textarea#umlDocument"), {
           into: $("div#renderer")
         });
      } catch (_error) {
         ex = _error;
-        $('footer#status').text(ex);
+        $('div#status').text(ex);
      }
     };
     
@@ -33,33 +33,26 @@ var sample2 = '@found "You", ->\n  @alt\n    "[found]": ->\n      @loop ->\n    
   </script>
 </body>
 
-<div class="wrapper">
-	<div class="middle">
-
-		<div class="container">
-			<main class="content">
-				
-        <textarea id='umlDocument'>
-@found "You", ->
-  @message "get", "JUMLY"
-  </textarea><br/>
-  <button onclick="updateJumly()">Update !</button>
- 
-  <div id='renderer'></div>
-        </main><!-- .content -->
-		</div><!-- .container-->
-
-		<aside class="left-sidebar">
-			<div class='file' onclick="loadDocument(sample1)">Sample 1</div>
+<table>
+  <tr>
+    <td rowspan=2 class='left'>
+      <div class='file' onclick="loadDocument(sample1)">Sample 1</div>
       <div class='file' onclick="loadDocument(sample2)">Sample 2</div>
-      </aside><!-- .left-sidebar -->
-
-	</div><!-- .middle-->
-
-</div><!-- .wrapper -->
-
-<footer class="footer" id='status'>
-	
-  </footer><!-- .footer -->
-
+    </td>
+    <td class='mainTop'>
+      <textarea id='umlDocument'></textarea><br/>
+      <button onclick="updateJumly()">Update !</button>
+    </td>
+  </tr>
+  <tr>
+    <td class='mainBottom'>
+    <div id='renderer'></div>
+      </td>
+  </tr>
+  <tr>
+    <td class='status' rowspan="2">
+      <div id='status'/>
+    </td>
+  </tr>
+</table>
  </html>

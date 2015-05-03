@@ -2,57 +2,44 @@
 	margin: 0;
 	padding: 0;
 }
+
 html {
 	height: 100%;
 }
-article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
-	display: block;
-}
 body {
-	font: 12px/18px Arial, sans-serif;
 	height: 100%;
-	background: deepskyblue;
+	width:100%;
+	 overflow:hidden;
 }
-.wrapper {
-	width: 100%;
-	min-height: 100%;
-	height: auto !important;
+
+table {
 	height: 100%;
+	width:100%;
 }
 
-/* Middle
------------------------------------------------------------------------------*/
-.middle {
-	width: 100%;
-	padding: 0 0 40px;
-	position: relative;
-}
-.middle:after {
-	display: table;
-	clear: both;
-	content: '';
-}
-.container {
-	width: 100%;
-	float: left;
-	overflow: hidden;
+td.left {
+	width:80px;
+	background-color: green;
 }
 
-.content {
-	padding: 0 0 0 80px
+td.mainTop {
+	height:380px;
+	background: blue;
 }
 
-textarea {width:100%; padding-right: 120px; height: 300px}
+td.mainBottom {
+	height:370px;
+	background: yellow;
+}
 
-/* Left Sidebar
------------------------------------------------------------------------------*/
-.left-sidebar {
-	float: left;
-	width: 80px;
-	height:inherit;
-	margin-left: -100%;
-	position: relative;
-	line-height:30px;
+div.renderer {
+	overflow:auto;
+}
+
+td.status {
+	height:20px;
+	min-height: 20px;
+	max-height: 20px;
 }
 
 .file {
@@ -60,24 +47,7 @@ textarea {width:100%; padding-right: 120px; height: 300px}
 	padding: 5px;
 }
 
-.seleceted {
-	background: deepskyblue
-}
-
 .file:hover {
 	background: lightskyblue;
 	cursor:pointer;
-}
-
-
-/* Footer
------------------------------------------------------------------------------*/
-.footer {
-	margin: -40px auto 0;
-	width: inherit;
-	height: 40px;
-	background: blue;
-	position: relative;
-	padding-left: 50px;
-	color: yellow;
 }
