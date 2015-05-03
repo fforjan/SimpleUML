@@ -21,7 +21,9 @@
     "electron-prebuilt": "^0.25.1-1",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
+    "grunt-tslint": "^2.0.0",
     "grunt-typescript": "^0.6.1",
+    "tslint": "^2.1.1",
     "typescript": "~1.4.1"
   },
   "dependencies": {}

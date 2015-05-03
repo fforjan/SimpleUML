@@ -8,7 +8,7 @@
 
 // A task runner that calls the Typescipt compiler (tsc) and 
 // Compiles a HelloWorld.ts program
-{
+/*{
 	"version": "0.1.0",
 	
 	// The command is tsc.
@@ -30,6 +30,90 @@
 	// use the standard tsc problem matcher to find compile problems
 	// in the output.
 	"problemMatcher": "$tsc"
+}*/
+
+{
+	"version": "0.1.0",
+	
+	// The command is tsc.
+	"command": "${workspaceRoot}/node_modules/.bin/grunt",
+
+	// Show the output window only if unrecognized errors occur. 
+	"showOutput": "silent",
+	
+	// Under windows use tsc.exe. This ensures we don't need a shell.
+	"windows": {
+		"command": "tsc.exe"
+	},
+	
+	// args is the HelloWorld program to compile.
+	"args": [],
+	
+	"isShellCommand": true,
+	
+	// use the standard tsc problem matcher to find compile problems
+	// in the output.
+	"problemMatcher": "$tsc",
+	
+	"tasks": [
+		{
+			"args": ["--no-color"],
+			"taskName": "default",
+			// Make this the default build command.
+			"isBuildCommand": true,
+			// Show the output window only if unrecognized errors occur.
+			"showOutput": "silent",
+			// Use the standard less compilation problem matcher.
+			"problemMatcher": {
+				// The problem is owned by the typescript language service. Ensure that the problems
+				// are merged with problems produced by Visual Studio's language service.
+				"owner": "typescript",
+				// The file name for reported problems is relative to the current working directory.
+				"fileLocation": ["relative", "${cwd}"],  
+				"pattern": {
+					// The regular expression. Matches HelloWorld.ts(2,10): error TS2339: Property 'logg' does not exist on type 'Console'.
+					"regexp": "^>> ([^\\s].*)\\((\\d+|\\d+,\\d+|\\d+,\\d+,\\d+,\\d+)\\):\\s+(error|warning|info)\\s+(TS\\d+)\\s*:\\s*(.*)$",
+					// The match group that denotes the file containing the problem.
+					"file": 1,
+					// The match group that denotes the problem location.
+					"location": 2,
+					// The match group that denotes the problem's severity. Can be omitted.
+					"severity": 3,
+					// The match group that denotes the problem code. Can be omitted.
+					"code": 4,
+					// The match group that denotes the problem's message.
+					"message": 5
+				}	
+			}
+		},
+		{
+			"taskName": "tslint",
+			
+			// Show the output window only if unrecognized errors occur.
+			"showOutput": "always",
+			// Use the standard less compilation problem matcher.
+			"problemMatcher": {
+				// The problem is owned by the typescript language service. Ensure that the problems
+				// are merged with problems produced by Visual Studio's language service.
+				"owner": "tslint",
+				// The file name for reported problems is relative to the current working directory.
+				"fileLocation": ["relative", "${cwd}"],
+				
+				// The actual pattern to match problems in the output.
+				"pattern": {
+					// The regular expression. Matches HelloWorld.ts(2,10): error TS2339: Property 'logg' does not exist on type 'Console'.
+					"regexp": "^>> ([^\\s].*)\\[(\\d+|\\d+,\\s*\\d+|\\d+,\\d+,\\d+,\\d+)\\]:\\s*(.*)$",
+					// The match group that denotes the file containing the problem.
+					"file": 1,
+					// The match group that denotes the problem location.
+					"location": 2,
+					// The match group that denotes the problem's message.
+					"message": 3
+				}
+			}
+		}
+		
+	]
 }
 
 // A task runner configuration for gulp. Gulp provides a less task
