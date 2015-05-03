@@ -11,6 +11,8 @@ var sample2: string = "@found \"You\", ->\n  @alt\n    \"[found]\": ->\n      @l
 
 var fs: any = require("fs");
 
+var activeDocument: Documents.JumlyDocument = undefined;
+
 /* tslint:enable:max-line-length */
 
 function renderJumlyDocument(): void {
@@ -18,6 +20,7 @@ function renderJumlyDocument(): void {
 
        $("div#status").text("ok");
       try {
+        activeDocument.Content = $("textarea#umlDocument").val();
         JUMLY.eval($("textarea#umlDocument"), {
           into: $("div#renderer")
         });
@@ -27,18 +30,18 @@ function renderJumlyDocument(): void {
      }
     };
 
-function setJumlyDocumentContent(document: string): void {
+function setJumlyDocumentContent(): void {
     "use strict";
 
-      $("textarea#umlDocument").val(document);
+      $("textarea#umlDocument").val(activeDocument.Content);
       renderJumlyDocument();
 };
 
-function loadJumlyDocument(node: JQuery): void {
+function activatedJumlyDocument(node: JQuery): void {
    "use strict";
-    var attachDocument: Documents.JumlyDocument = jQuery.data( document.body, "jumlyDocument");
-    attachDocument.Load();
-    setJumlyDocumentContent(attachDocument.Content);
+    activeDocument = jQuery.data( document.body, "jumlyDocument");
+    activeDocument.Load();
+    setJumlyDocumentContent();
 }
 
 function getUserHome(): string {
@@ -55,7 +58,7 @@ function setDocuments(): void {
       var newFile: JQuery = $( "<div/>", {
       "class": "file",
       text: jumlyDocuments[i].Name,
-      onclick: "loadJumlyDocument(this)"
+      onclick: "activatedJumlyDocument(this)"
       });
 
       jQuery.data( document.body, "jumlyDocument", jumlyDocuments[i] );

@@ -41,7 +41,7 @@ module Documents {
 		}
 
 		public Save(): void {
-			fs.saveFileSync(this.path, this.content);
+			fs.writeFileSync(this.path, this.content);
 			this.isDirty = false;
 		}
 	}
