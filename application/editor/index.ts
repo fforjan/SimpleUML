@@ -1,5 +1,6 @@
 ///<reference path="../../Typescript/jquery.d.ts" />
 ///<reference path="../../Typescript/jumly.d.ts" />
+///<reference path="../../Typescript/package.json.d.ts" />
 ///<reference path="../lib/jumlyDocument.ts" />
 ///<reference path="../lib/memoryDocument.ts" />
 
@@ -12,6 +13,7 @@ var sample1: string = "@found \"User\", ->\n  @message \"search\", \"Browser\", 
 var sample2: string = "@found \"You\", ->\n  @alt\n    \"[found]\": ->\n      @loop ->\n        @message \"request\", \"HTTP Server\"\n        @note \"NOTE: This doesn\'t make sense :)\"\n    \"[missing]\": ->\n      @message \"new\", \"HTTP Session\"\n  @ref \"respond resource\"";
 
 var fs: any = require("fs");
+var packageDescription: Package = require("../../package.json");
 
 var activeDocument: Documents.JumlyDocument = undefined;
 
@@ -50,6 +52,7 @@ function setJumlyDocumentContent(): void {
 function activatedJumlyDocument(node: Element): void {
     "use strict";
     activeDocument = $(node).data("jumlyDocument");
+    document.title = packageDescription.name + " - " + activeDocument.Name;
     activeDocument.Load();
     setJumlyDocumentContent();
 }
@@ -87,5 +90,7 @@ function setDocuments(): void {
 }
 
 $( document ).ready((): void => {
+   
   setDocuments();
+  document.title = packageDescription.name;
 });
