@@ -18,27 +18,29 @@ var activeDocument: Documents.JumlyDocument = undefined;
 function renderJumlyDocument(): void {
     "use strict";
 
-       $("div#status").text("ok");
-      try {
-        activeDocument.Content = $("textarea#umlDocument").val();
-        JUMLY.eval($("textarea#umlDocument"), {
-          into: $("div#renderer")
-        });
-     } catch (_error ) {
-        var ex: any = _error;
-        $("div#status").text(ex);
-     }
-    };
+    $("div#status").text("ok");
+    try {
+      activeDocument.Content = $("textarea#umlDocument").val();
+      JUMLY.eval($("textarea#umlDocument"), {
+        into: $("div#renderer")
+      });
+/* tslint:disable:typedef issue with exception */
+    } catch (_error) {
+/* tslint:disable:typedef */
+      var ex: any = _error;
+      $("div#status").text(ex);
+   }
+};
 
 function setJumlyDocumentContent(): void {
     "use strict";
 
-      $("textarea#umlDocument").val(activeDocument.Content);
-      renderJumlyDocument();
+    $("textarea#umlDocument").val(activeDocument.Content);
+    renderJumlyDocument();
 };
 
 function activatedJumlyDocument(node: JQuery): void {
-   "use strict";
+    "use strict";
     activeDocument = jQuery.data( document.body, "jumlyDocument");
     activeDocument.Load();
     setJumlyDocumentContent();
