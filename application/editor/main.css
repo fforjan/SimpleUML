@@ -20,6 +20,10 @@ table {
 	width:100%;
 }
 
+table, th, td {
+   border: 0px;
+}
+
 td.left {
 	vertical-align: text-top;
 	width:80px;
@@ -62,7 +66,7 @@ td.status {
 	display: block; 
 	width: 100%;
 	padding: 3px;
-	margin: 2px;
+	margin-right: 2px;
 }
 
 .file {
