@@ -12,12 +12,12 @@ module Documents {
 		}
 
 		public Save(): void {
-			this.IsDirty = true;
+			this.isDirty = true;
 		}
 
 		public Load(): void {
 			this.Content = this.defaultContent;
-			this.IsDirty = false;
+			this.isDirty = false;
 		}
 	}
 }

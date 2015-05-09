@@ -1,5 +1,7 @@
 ///<reference path="../../Typescript/jquery.d.ts" />
 ///<reference path="../../Typescript/jumly.d.ts" />
+///<reference path="../lib/jumlyDocument.ts" />
+///<reference path="../lib/memoryDocument.ts" />
 
 "use strict";
 
@@ -32,6 +34,12 @@ function renderJumlyDocument(): void {
    }
 };
 
+function saveDocument(): void {
+    "use strict";
+    activeDocument.Content = $("textarea#umlDocument").val();
+    activeDocument.Save();
+}
+
 function setJumlyDocumentContent(): void {
     "use strict";
 
@@ -39,9 +47,9 @@ function setJumlyDocumentContent(): void {
     renderJumlyDocument();
 };
 
-function activatedJumlyDocument(node: JQuery): void {
+function activatedJumlyDocument(node: Element): void {
     "use strict";
-    activeDocument = jQuery.data( document.body, "jumlyDocument");
+    activeDocument = $(node).data("jumlyDocument");
     activeDocument.Load();
     setJumlyDocumentContent();
 }
@@ -51,21 +59,30 @@ function getUserHome(): string {
     return process.env[(process.platform === "win32") ? "USERPROFILE" : "HOME"];
 }
 
+function insertDocument(document: Documents.Document)
+{
+    "use strict";
+    var newFile: JQuery = $( "<div/>", {
+      "class": "file",
+      text: document.Name,
+      onclick: "activatedJumlyDocument(this)"
+    });
+
+    newFile.data("jumlyDocument", document);
+
+    newFile.insertBefore( $( "#lastFileAnchor" ) );
+}
+
 function setDocuments(): void {
     "use strict";
+
+    insertDocument( new Documents.MemoryDocument("Sample 1", sample1));
+    insertDocument( new Documents.MemoryDocument("Sample 2", sample2));
 
     var jumlyDocuments: Documents.JumlyDocument[] = Documents.JumlyDocument.IdentifyJumlyDocuments(getUserHome());
 
     for ( var i: number = 0; i < jumlyDocuments.length; i++) {
-      var newFile: JQuery = $( "<div/>", {
-      "class": "file",
-      text: jumlyDocuments[i].Name,
-      onclick: "activatedJumlyDocument(this)"
-      });
-
-      jQuery.data( document.body, "jumlyDocument", jumlyDocuments[i] );
-
-      newFile.insertBefore( $( "#lastFileAnchor" ) );
+      insertDocument(jumlyDocuments[i]);
     }
 }
 

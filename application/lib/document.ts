@@ -6,10 +6,12 @@ module Documents {
 "use strict";
 
 	export class Document {
+
+		protected isDirty: boolean;
+
 		private path: string;
 		private documentName: string;
 		private content: string;
-		private isDirty: boolean;
 
 		public constructor(documentName: string, documentPath: string) {
 			this.path = documentPath;

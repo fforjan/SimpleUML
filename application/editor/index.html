@@ -7,6 +7,7 @@
   <script src='./scripts/jumly.min.js'></script>
   <script src='../lib/document.js'></script>
   <script src='../lib/jumlyDocument.js'></script>
+  <script src='../lib/memoryDocument.js'></script>
   <script src='index.js'></script>
   <link href="main.css" rel="stylesheet">
 </head>
@@ -17,7 +18,7 @@
     <td rowspan=2 class='left'>
       <div id='lastFileAnchor'></div>
       <button onclick="renderJumlyDocument()">Update !</button>
-        <button onclick="activeDocument.Save()">save !</button>
+        <button onclick="saveDocument()">save !</button>
     </td>
     <td class='mainTop'>
       <textarea id='umlDocument'></textarea><br/>
