@@ -10,15 +10,29 @@ import MemoryDocument = require("../lib/memoryDocument");
 import JumlyDocument = require("../lib/jumlyDocument");
 
 var ipc: any = require("ipc");
-var remote: any = require("remote");
 var packageDescription: Package = require("../../package.json");
 var samples: { [id: string]: string; } = require("./sample.json");
 
+/**
+ * Class representing the Uml Editor controler
+ */
 export class UmlEditor {
 
+  /**
+   * Active document
+   */
   private activeDocument: Document.Document;
+
+  /**
+   * Active UI Element, used to change the active state
+   */
   private activeUIElement: JQuery;
 
+  /**
+   * Set the associated jumly document to the node as active.
+   * Abut also set the node as the activeUIElement
+   * @param node element to be active
+   */
   public activateJumlyDocument(node: Element): void {
 
     if (this.activeUIElement !== undefined) {
@@ -34,16 +48,26 @@ export class UmlEditor {
     this.setJumlyDocumentContent();
   }
 
+  /**
+   * Save active document
+   */
   public saveDocument(): void {
     this.activeDocument.Content = $("textarea#umlDocument").val();
     this.activeDocument.Save();
   }
 
+  /**
+   * set the current displayed document content as the active content.
+   * Any modification is lost.
+   */
   public  setJumlyDocumentContent(): void {
       $("textarea#umlDocument").val(this.activeDocument.Content);
       this.renderJumlyDocument();
   }
 
+  /**
+   * Set all documents into the document area.
+   */
   public setDocuments(): void {
     for (var id in samples) {
        if (samples.hasOwnProperty(id)) {
@@ -58,6 +82,9 @@ export class UmlEditor {
     }
   }
 
+  /**
+   * Render the currently displayed document content.
+   */
   public renderJumlyDocument(): void {
 
     $("div#status").text("ok");
@@ -74,10 +101,10 @@ export class UmlEditor {
     }
   }
 
-  public getDocumentAsImage(callBack: (nativeImage: any) => void): void {
-    remote.getCurrentWindow().capturePage(callBack);
-  }
-
+  /** 
+   * copy currently rendered image to the clipboard.
+   * note : this will be asynchronous.
+   */
   public copyToClipboard() {
     var boundingRect: ClientRect = document.getElementById("renderer").getBoundingClientRect();
 
@@ -90,10 +117,17 @@ export class UmlEditor {
       });
   }
 
+  /**
+   * Get user home directory
+   */
   private getUserHome(): string {
     return process.env[(process.platform === "win32") ? "USERPROFILE" : "HOME"];
   }
 
+  /**
+   * insert new document into the list of documents.
+   * @param document document to be inserted
+   */
   private insertDocument(document: Document.Document): void
   {
       var newFile: JQuery = $( "<div/>", {

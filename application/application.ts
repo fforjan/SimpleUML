@@ -11,16 +11,26 @@ var ipc: any = require("ipc");
 
 import aboutInfo  = require("./lib/aboutinfo");
 
+/**
+ * Application class - main process from electron.
+ */
 export class Application {
 
 	private mainWindow: any;
 	private startURI: string;
 
+	/**
+	 * Constructor
+	 * @param startURI Uri to use when starting the application
+	 */
 	public constructor(startURI: string)
 	{
 		this.startURI  = startURI;
 	}
 
+	/**
+	 * start the application itself.
+	 */
 	public Start(): void {
 
 		this.mainWindow = null;
@@ -33,6 +43,9 @@ export class Application {
 		app.on("ready", () => this.Ready() );
 	}
 
+	/**
+	 * call back
+	 */
 	private WindowAllClose(): void {
 		if (process.platform !== "darwin")
 		{
@@ -70,27 +83,33 @@ export class Application {
 
 		var template: any = [
 			{
-				label: aboutInfo.AboutInfo.GetApplicationName(),
+				label: app.getName(),
 				submenu: [
-					{
-						label: "Quit",
-						accelerator: "Command+Q",
-						click: (): void => { app.quit(); }
-					},
 					{
 						label: "Save",
 						accelerator: "Command+S",
 						click: (): void => { this.mainWindow.webContents.send("save"); }
 					},
+					{ type: "separator" },
+					{
+						label: "Quit",
+						accelerator: "Command+Q",
+						click: (): void => { app.quit(); }
+					},
+				]
+			},
+			{
+				label: "Edit",
+				submenu: [
 					{
 						label: "Update",
 						accelerator: "Command+U",
 						click: (): void => { this.mainWindow.webContents.send("update"); }
 					},
 					{
-						label: "Screenshot",
+						label: "Copy to clipboard",
 						click: (): void => { this.mainWindow.webContents.send("requestClipboardArea"); }
-					}
+					},
 				]
 			},
 			{
