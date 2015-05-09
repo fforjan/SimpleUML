@@ -1,8 +1,8 @@
-///<reference path="../Typescript/package.json.d.ts"/>
+///<reference path="../../Typescript/package.json.d.ts"/>
 "use strict";
 
 var dialog: any = require("dialog");
-var packageDescription: Package = require("../package.json");
+var packageDescription: Package = require("../../package.json");
 
 export class AboutInfo {
 	public static DisplayExtra(window: any): void {

@@ -5,7 +5,7 @@ var app: any = require("app");  // module to control application life.
 var BrowserWindow: any = require("browser-window");  // module to create native browser window.
 var Menu: any = require("menu");
 
-import aboutInfo  = require("./aboutinfo");
+import aboutInfo  = require("./lib/aboutinfo");
 
 export class Application {
 

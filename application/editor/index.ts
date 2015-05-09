@@ -1,5 +1,5 @@
-///<reference path="../Typescript/jquery.d.ts" />
-///<reference path="../Typescript/jumly.d.ts" />
+///<reference path="../../Typescript/jquery.d.ts" />
+///<reference path="../../Typescript/jumly.d.ts" />
 
 "use strict";
 
