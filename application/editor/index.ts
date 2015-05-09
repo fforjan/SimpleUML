@@ -90,7 +90,6 @@ function setDocuments(): void {
 }
 
 $( document ).ready((): void => {
-   
   setDocuments();
   document.title = packageDescription.name;
 });
