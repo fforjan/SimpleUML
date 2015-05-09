@@ -1,4 +1,4 @@
-///<reference path="../../Typescript/jquery.d.ts" />
+///<reference path="../../typings/jquery/jquery.d.ts" />
 ///<reference path="../../Typescript/jumly.d.ts" />
 ///<reference path="../../Typescript/package.json.d.ts" />
 ///<reference path="../lib/jumlyDocument.ts" />

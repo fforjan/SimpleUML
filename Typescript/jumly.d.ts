@@ -1,4 +1,4 @@
-/// <reference path="jquery.d.ts" />
+/// <reference path="../typings/jquery/jquery.d.ts" />
 
 interface Options {
 	into : JQuery | NodeSelector; 
