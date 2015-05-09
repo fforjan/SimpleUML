@@ -5,6 +5,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-wget');
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-mkdir');
+    grunt.loadNpmTasks('grunt-typedoc');
     
     var tsSourceFiles = ['application/**/*.ts', 'server.ts'];
     var packageContentSrcFile = ["package.json", "server.js",'application/**/*', '!**/*.ts'];
@@ -79,7 +80,19 @@ module.exports = function (grunt) {
                      create: ['dist']
                 }
              },
-         }
+         },
+         typedoc: {
+            build: {
+                options: {
+                    module: 'commonjs',
+                    target: 'es5',
+                    out: 'docs/',
+                    name: 'Simple UML',
+                    theme: 'minimal'
+                },
+                src: tsSourceFiles
+            }
+        }
     });
 
 
@@ -92,6 +105,7 @@ module.exports = function (grunt) {
     grunt.registerTask('make-dist', ['make-dist-darwin','make-dist-windows']);
     
     grunt.registerTask('default', ['typescript']);
+    grunt.registerTask('quality', ['typescript', 'typedoc']);
     grunt.registerTask('travis', ['typescript', 'tslint']);
  
 };

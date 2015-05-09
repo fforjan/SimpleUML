@@ -87,7 +87,7 @@
 			}
 		},
 		{
-			"taskName": "tslint",
+			"taskName": "quality",
 			
 			"isTestCommand": true,
 			
