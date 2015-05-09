@@ -1,4 +1,4 @@
-/// <reference path="../../Typescript/node.d.ts" />
+/// <reference path="../../typings/node/node.d.ts" />
 
 var fs: any = require("fs");
 
