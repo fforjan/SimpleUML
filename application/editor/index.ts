@@ -18,9 +18,18 @@ var samples: { [id: string]: string; } = require("./sample.json");
 class UmlEditor {
 
   private activeDocument: Document.Document;
+  private activeUIElement: JQuery;
 
   public activateJumlyDocument(node: Element): void {
-    this.activeDocument = $(node).data("jumlyDocument");
+    
+    if(this.activeUIElement !== undefined) {
+        this.activeUIElement.removeClass("current");
+    }
+    
+    this.activeUIElement= $(node);
+    this.activeUIElement.addClass("current");
+    
+    this.activeDocument = this.activeUIElement.data("jumlyDocument");
     document.title = packageDescription.name + " - " + this.activeDocument.Name;
     this.activeDocument.Load();
     this.setJumlyDocumentContent();

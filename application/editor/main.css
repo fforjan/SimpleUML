@@ -63,6 +63,10 @@ td.status {
 	padding: 5px;
 }
 
+.file.current {
+	background: #68BDB7;
+}
+
 .file:hover {
 	cursor:pointer;
 	background: #104642;
