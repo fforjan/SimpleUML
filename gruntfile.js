@@ -6,6 +6,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-typedoc');
+    grunt.loadNpmTasks('grunt-tsd');
     
     var packageInfo = grunt.file.readJSON('./package.json');
     
@@ -95,6 +96,21 @@ module.exports = function (grunt) {
                 },
                 src: tsSourceFiles
             }
+        },
+        tsd: {
+            refresh: {
+                options: {
+                    // execute a command
+                    command: 'reinstall',
+
+                    config: 'tsd.json',
+
+                    // experimental: options to pass to tsd.API
+                    opts: {
+                        // props from tsd.Options
+                    }
+                }
+            }
         }
     });
 
@@ -107,8 +123,9 @@ module.exports = function (grunt) {
     
     grunt.registerTask('make-dist', ['make-dist-darwin','make-dist-windows']);
     
-    grunt.registerTask('default', ['typescript']);
-    grunt.registerTask('quality', ['typescript', 'typedoc']);
-    grunt.registerTask('travis', ['typescript', 'tslint']);
+    grunt.registerTask('build', ['tsd:refresh', 'typescript'])
+    grunt.registerTask('default', ['build']);
+    grunt.registerTask('quality', ['tslint', 'typedoc']);
+    grunt.registerTask('travis', ['build', 'tslint']);
  
 };
