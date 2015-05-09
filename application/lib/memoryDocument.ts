@@ -1,23 +1,23 @@
-/// <reference path="document.ts" />
-module Documents {
-	"use strict";
 
-	export class MemoryDocument extends Documents.Document {
+import Documents = require("./document");
 
-		private defaultContent: string;
+"use strict";
 
-		constructor(documentName: string, defaultContent: string) {
-			super(documentName, "memorydocument://" + documentName);
-			this.defaultContent = defaultContent;
-		}
+export class MemoryDocument extends Documents.Document {
 
-		public Save(): void {
-			this.isDirty = true;
-		}
+	private defaultContent: string;
 
-		public Load(): void {
-			this.Content = this.defaultContent;
-			this.isDirty = false;
-		}
+	constructor(documentName: string, defaultContent: string) {
+		super(documentName, "memorydocument://" + documentName);
+		this.defaultContent = defaultContent;
+	}
+
+	public Save(): void {
+		this.isDirty = true;
+	}
+
+	public Load(): void {
+		this.Content = this.defaultContent;
+		this.isDirty = false;
 	}
 }

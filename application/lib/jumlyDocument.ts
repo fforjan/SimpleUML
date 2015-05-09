@@ -1,37 +1,38 @@
 /// <reference path="document.ts" />
-module Documents {
-	"use strict";
+"use strict";
 
-	var path: any = require("path");
+import Documents = require("./document");
 
-	export class JumlyDocument extends Documents.Document {
+var fs: any = require("fs");
+var path: any = require("path");
 
-		public constructor(filePath: string) {
-			super(path.basename(filePath, JumlyDocument.extension), filePath);
-		}
+export class JumlyDocument extends Documents.Document {
 
-		public static get extension(): string {
-			return ".jm";
-		}
+	public constructor(filePath: string) {
+		super(path.basename(filePath, JumlyDocument.extension), filePath);
+	}
 
-		public static IsJumlyDocument(filepath: string): boolean {
-			return filepath.indexOf(JumlyDocument.extension, filepath.length - JumlyDocument.extension.length) !== -1;
-		}
+	public static get extension(): string {
+		return ".jm";
+	}
 
-		public static IdentifyJumlyDocuments(filepath: string): JumlyDocument[] {
+	public static IsJumlyDocument(filepath: string): boolean {
+		return filepath.indexOf(JumlyDocument.extension, filepath.length - JumlyDocument.extension.length) !== -1;
+	}
 
-			var files: string[] = fs.readdirSync(filepath);
+	public static IdentifyJumlyDocuments(filepath: string): JumlyDocument[] {
 
-			var list: JumlyDocument[] = [];
+		var files: string[] = fs.readdirSync(filepath);
 
-			for ( var i: number = 0; i < files.length; i++) {
-				var file: string = path.join(filepath, files[i]);
-				if (Documents.JumlyDocument.IsJumlyDocument(file)) {
-					list.push(new JumlyDocument(file));
-				}
+		var list: JumlyDocument[] = [];
+
+		for ( var i: number = 0; i < files.length; i++) {
+			var file: string = path.join(filepath, files[i]);
+			if (JumlyDocument.IsJumlyDocument(file)) {
+				list.push(new JumlyDocument(file));
 			}
-
-			return list;
 		}
+
+		return list;
 	}
 }

@@ -6,18 +6,22 @@
 
 "use strict";
 
+import Document = require('../lib/document');
+import MemoryDocument = require('../lib/memoryDocument');
+import JumlyDocument = require('../lib/jumlyDocument');
+
 /* tslint:disable:no-unused-variable */
 
 /* tslint:disable:max-line-length */
 var sample1: string = "@found \"User\", ->\n  @message \"search\", \"Browser\", ->\n    @create asynchronous:\"connection\", \"Web Server\"\n    @message \"GET\", \"Web Server\", ->\n      @message \"find the resource\", -> @reply \"\"\n    @reply \"\", \"User\"";
 var sample2: string = "@found \"You\", ->\n  @alt\n    \"[found]\": ->\n      @loop ->\n        @message \"request\", \"HTTP Server\"\n        @note \"NOTE: This doesn\'t make sense :)\"\n    \"[missing]\": ->\n      @message \"new\", \"HTTP Session\"\n  @ref \"respond resource\"";
+/* tslint:enable:max-line-length */
 
 var fs: any = require("fs");
 var packageDescription: Package = require("../../package.json");
 
-var activeDocument: Documents.JumlyDocument = undefined;
+var activeDocument: Document.Document = undefined;
 
-/* tslint:enable:max-line-length */
 
 function renderJumlyDocument(): void {
     "use strict";
@@ -62,7 +66,7 @@ function getUserHome(): string {
     return process.env[(process.platform === "win32") ? "USERPROFILE" : "HOME"];
 }
 
-function insertDocument(document: Documents.Document)
+function insertDocument(document: Document.Document)
 {
     "use strict";
     var newFile: JQuery = $( "<div/>", {
@@ -79,10 +83,10 @@ function insertDocument(document: Documents.Document)
 function setDocuments(): void {
     "use strict";
 
-    insertDocument( new Documents.MemoryDocument("Sample 1", sample1));
-    insertDocument( new Documents.MemoryDocument("Sample 2", sample2));
+    insertDocument( new MemoryDocument.MemoryDocument("Sample 1", sample1));
+    insertDocument( new MemoryDocument.MemoryDocument("Sample 2", sample2));
 
-    var jumlyDocuments: Documents.JumlyDocument[] = Documents.JumlyDocument.IdentifyJumlyDocuments(getUserHome());
+    var jumlyDocuments: JumlyDocument.JumlyDocument[] = JumlyDocument.JumlyDocument.IdentifyJumlyDocuments(getUserHome());
 
     for ( var i: number = 0; i < jumlyDocuments.length; i++) {
       insertDocument(jumlyDocuments[i]);
