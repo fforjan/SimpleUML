@@ -58,13 +58,15 @@ export class Application {
 
 		var template: any = [
 			{
-			submenu: [
-				{
-					label: "Quit",
-					accelerator: "Command+Q",
-					click: (): void => { app.quit(); }
-				},
-			]},
+				label: aboutInfo.AboutInfo.GetApplicationName(),
+				submenu: [
+					{
+						label: "Quit",
+						accelerator: "Command+Q",
+						click: (): void => { app.quit(); }
+					},
+				]
+			},
 			{
 				label: "Help",
 				submenu: [

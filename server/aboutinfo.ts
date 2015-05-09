@@ -14,4 +14,8 @@ export class AboutInfo {
 		extra += "\nNode version : " + process.versions.node;
 		dialog.showMessageBox(window, { "type": "info", "message": msg, "detail": extra, "buttons": [ "Close" ]});
 	}
+	
+	public static GetApplicationName() : string {
+		return packageDescription.name;
+	}
 }
