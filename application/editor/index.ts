@@ -24,6 +24,6 @@ $( document ).ready((): void => {
   });
   
   ipc.on("requestClipboardArea", (arg) => {
-    ipc.send("copyToClipboard", { 'x':0, "y": 0, "width": 200, "height": 200});
+   editor.copyToClipboard();
   });
 });

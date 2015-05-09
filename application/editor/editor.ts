@@ -10,7 +10,7 @@ import MemoryDocument = require("../lib/memoryDocument");
 import JumlyDocument = require("../lib/jumlyDocument");
 
 var fs: any = require("fs");
-
+var ipc: any = require('ipc');
 var remote = require("remote");
 var remoteClipboard = require('clipboard');
 var packageDescription: Package = require("../../package.json");
@@ -81,10 +81,15 @@ export class UmlEditor {
   }
   
   public copyToClipboard() {
-    this.getDocumentAsImage( (nativeImage: any) => { 
-      console.log("Image size:" + nativeImage.getSize().width);
-      remoteClipboard.writeImage(nativeImage);
-    });
+    var boundingRect: ClientRect = document.getElementById("renderer").getBoundingClientRect();
+    
+    ipc.send("copyToClipboard", 
+      { 
+        "x": boundingRect.left, 
+        "y": boundingRect.top, 
+        "width":boundingRect.width, 
+        "height": 370 /** FIXME for some reasons height is not set correctly */
+      });
   }
 
   private getUserHome(): string {

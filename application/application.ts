@@ -57,14 +57,14 @@ export class Application {
 			this.mainWindow = null;
 		});
 		
-		ipc.on("copyToClipboard", (arg: any) => {
-				this.CopyToClipboard(arg);
+		ipc.on("copyToClipboard", (event : any, rect: any) => {
+				this.CopyToClipboard(rect);
 			}
 		);
 	}
 	
-	private CopyToClipboard(arg: any): void {
-		this.mainWindow.capturePage( ( img: any) => clipboard.writeImage(img));
+	private CopyToClipboard(rect: any): void {
+		this.mainWindow.capturePage(rect, ( img: any) => clipboard.writeImage( img));
 	}
 	private BuildMenu(): void {
 
