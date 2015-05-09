@@ -1,103 +1,29 @@
-///<reference path="../../typings/jquery/jquery.d.ts" />
-///<reference path="../../Typescript/jumly.d.ts" />
-///<reference path="../../Typescript/package.json.d.ts" />
-///<reference path="../lib/jumlyDocument.ts" />
-///<reference path="../lib/memoryDocument.ts" />
 "use strict";
+///<reference path="../../Typescript/package.json.d.ts" />
 
-import Document = require("../lib/document");
-import MemoryDocument = require("../lib/memoryDocument");
-import JumlyDocument = require("../lib/jumlyDocument");
+import UmlEditor = require("./editor");
 
-/* tslint:disable:no-unused-variable */
-
-var fs: any = require("fs");
+var editor: UmlEditor.UmlEditor;
 var packageDescription: Package = require("../../package.json");
-var samples: { [id: string]: string; } = require("./sample.json");
-
-class UmlEditor {
-
-  private activeDocument: Document.Document;
-  private activeUIElement: JQuery;
-
-  public activateJumlyDocument(node: Element): void {
-    
-    if(this.activeUIElement !== undefined) {
-        this.activeUIElement.removeClass("current");
-    }
-    
-    this.activeUIElement= $(node);
-    this.activeUIElement.addClass("current");
-    
-    this.activeDocument = this.activeUIElement.data("jumlyDocument");
-    document.title = packageDescription.name + " - " + this.activeDocument.Name;
-    this.activeDocument.Load();
-    this.setJumlyDocumentContent();
-  }
-
-  public saveDocument(): void {
-    this.activeDocument.Content = $("textarea#umlDocument").val();
-    this.activeDocument.Save();
-  }
-
-  public  setJumlyDocumentContent(): void {
-      $("textarea#umlDocument").val(this.activeDocument.Content);
-      this.renderJumlyDocument();
-  }
-
-  public setDocuments(): void {
-    for (var id in samples) {
-       if (samples.hasOwnProperty(id)) {
-         this.insertDocument( new MemoryDocument.MemoryDocument(id, samples[id]));
-       }
-    }
-
-    var jumlyDocuments: JumlyDocument.JumlyDocument[] = JumlyDocument.JumlyDocument.IdentifyJumlyDocuments(this.getUserHome());
-
-    for ( var i: number = 0; i < jumlyDocuments.length; i++) {
-      this.insertDocument(jumlyDocuments[i]);
-    }
-  }
-
-  private getUserHome(): string {
-    return process.env[(process.platform === "win32") ? "USERPROFILE" : "HOME"];
-  }
-
-  private insertDocument(document: Document.Document): void
-  {
-      var newFile: JQuery = $( "<div/>", {
-        "class": "file",
-        text: document.Name,
-        onclick: "editor.activateJumlyDocument(this)"
-      });
-
-      newFile.data("jumlyDocument", document);
-
-      newFile.insertBefore( $( "#lastFileAnchor" ) );
-  }
-
-  private renderJumlyDocument(): void {
-
-    $("div#status").text("ok");
-    try {
-      this.activeDocument.Content = $("textarea#umlDocument").val();
-      JUMLY.eval($("textarea#umlDocument"), {
-        into: $("div#renderer")
-      });
-/* tslint:disable:typedef issue with exception */
-    } catch (_error) {
-/* tslint:disable:typedef */
-      var ex: any = _error;
-      $("div#status").text(ex);
-    }
-  }
-}
-
-var editor: UmlEditor;
 
 $( document ).ready((): void => {
   document.title = packageDescription.name;
-  editor = new UmlEditor();
+  editor = new UmlEditor.UmlEditor();
 
   editor.setDocuments();
+  
+  // In renderer process (web page).
+  var ipc = require("ipc");
+  
+  ipc.on("save", (arg) => {
+    editor.saveDocument();
+  });
+ 
+  ipc.on("update", (arg) => {
+   editor.renderJumlyDocument();
+  });
+  
+  ipc.on("requestClipboardArea", (arg) => {
+    ipc.send("copyToClipboard", { 'x':0, "y": 0, "width": 200, "height": 200});
+  });
 });
