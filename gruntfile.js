@@ -7,17 +7,20 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-typedoc');
     
+    var packageInfo = grunt.file.readJSON('./package.json');
+    
     var tsSourceFiles = ['application/**/*.ts', 'server.ts'];
     var packageContentSrcFile = ["package.json", "server.js",'application/**/*', '!**/*.ts'];
-    var electronVersion = "v0.25.2";
-    
+
+    var electronVersion = 'v' + packageInfo.devDependencies['electron-prebuilt'];
+
     var electronDarwin = "https://github.com/atom/electron/releases/download/" +electronVersion +
                            "/electron-"+ electronVersion + "-darwin-x64.zip";
     var electronWindows = "https://github.com/atom/electron/releases/download/" +electronVersion +
                            "/electron-"+ electronVersion + "-win32-ia32.zip";
                            
     grunt.initConfig({
-        pkg: grunt.file.readJSON('./package.json'),
+        pkg: packageInfo,
         typescript: {
             base: {
                 src: tsSourceFiles,
