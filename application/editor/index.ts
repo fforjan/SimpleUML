@@ -6,9 +6,9 @@
 
 "use strict";
 
-import Document = require('../lib/document');
-import MemoryDocument = require('../lib/memoryDocument');
-import JumlyDocument = require('../lib/jumlyDocument');
+import Document = require("../lib/document");
+import MemoryDocument = require("../lib/memoryDocument");
+import JumlyDocument = require("../lib/jumlyDocument");
 
 /* tslint:disable:no-unused-variable */
 
