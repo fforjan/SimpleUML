@@ -126,6 +126,6 @@ module.exports = function (grunt) {
     grunt.registerTask('build', ['tsd:refresh', 'typescript'])
     grunt.registerTask('default', ['build']);
     grunt.registerTask('quality', ['tslint', 'typedoc']);
-    grunt.registerTask('travis', ['build', 'tslint']);
+    grunt.registerTask('travis', ['build', 'quality', 'make-dist']);
  
 };
