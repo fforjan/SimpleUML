@@ -36,7 +36,13 @@ td.mainTop {
 td.mainBottom {
 	height:370px;
 	overflow:auto;
+	background: white;
 }
+
+div#renderer {
+	margin: 2px;
+}
+
 textarea {
 	border:none;
 	border-color: Transparent; 
