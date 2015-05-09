@@ -11,19 +11,18 @@ $( document ).ready((): void => {
   editor = new UmlEditor.UmlEditor();
 
   editor.setDocuments();
-  
-  // In renderer process (web page).
-  var ipc = require("ipc");
-  
-  ipc.on("save", (arg) => {
+
+  var ipc: any = require("ipc");
+
+  ipc.on("save", () => {
     editor.saveDocument();
   });
- 
-  ipc.on("update", (arg) => {
-   editor.renderJumlyDocument();
+
+  ipc.on("update", () => {
+    editor.renderJumlyDocument();
   });
-  
-  ipc.on("requestClipboardArea", (arg) => {
-   editor.copyToClipboard();
+
+  ipc.on("requestClipboardArea", () => {
+    editor.copyToClipboard();
   });
 });

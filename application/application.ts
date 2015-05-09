@@ -7,7 +7,7 @@ var app: any = require("app");  // module to control application life.
 var BrowserWindow: any = require("browser-window");  // module to create native browser window.
 var Menu: any = require("menu");
 var clipboard: any = require("clipboard");  // module to control application life.
-var ipc: any = require('ipc');
+var ipc: any = require("ipc");
 
 import aboutInfo  = require("./lib/aboutinfo");
 
@@ -56,13 +56,13 @@ export class Application {
 			// when you should delete the corresponding element.
 			this.mainWindow = null;
 		});
-		
-		ipc.on("copyToClipboard", (event : any, rect: any) => {
+
+		ipc.on("copyToClipboard", (event: any, rect: any) => {
 				this.CopyToClipboard(rect);
 			}
 		);
 	}
-	
+
 	private CopyToClipboard(rect: any): void {
 		this.mainWindow.capturePage(rect, ( img: any) => clipboard.writeImage( img));
 	}
@@ -81,14 +81,15 @@ export class Application {
 						label: "Save",
 						accelerator: "Command+S",
 						click: (): void => { this.mainWindow.webContents.send("save"); }
-					},{
+					},
+					{
 						label: "Update",
 						accelerator: "Command+U",
 						click: (): void => { this.mainWindow.webContents.send("update"); }
 					},
 					{
 						label: "Screenshot",
-						click: (): void => { this.mainWindow.webContents.send("requestClipboardArea");}
+						click: (): void => { this.mainWindow.webContents.send("requestClipboardArea"); }
 					}
 				]
 			},

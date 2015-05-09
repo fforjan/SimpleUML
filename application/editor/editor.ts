@@ -9,10 +9,8 @@ import Document = require("../lib/document");
 import MemoryDocument = require("../lib/memoryDocument");
 import JumlyDocument = require("../lib/jumlyDocument");
 
-var fs: any = require("fs");
-var ipc: any = require('ipc');
-var remote = require("remote");
-var remoteClipboard = require('clipboard');
+var ipc: any = require("ipc");
+var remote: any = require("remote");
 var packageDescription: Package = require("../../package.json");
 var samples: { [id: string]: string; } = require("./sample.json");
 
@@ -22,14 +20,14 @@ export class UmlEditor {
   private activeUIElement: JQuery;
 
   public activateJumlyDocument(node: Element): void {
-    
-    if(this.activeUIElement !== undefined) {
+
+    if (this.activeUIElement !== undefined) {
         this.activeUIElement.removeClass("current");
     }
-    
-    this.activeUIElement= $(node);
+
+    this.activeUIElement = $(node);
     this.activeUIElement.addClass("current");
-    
+
     this.activeDocument = this.activeUIElement.data("jumlyDocument");
     document.title = packageDescription.name + " - " + this.activeDocument.Name;
     this.activeDocument.Load();
@@ -59,7 +57,7 @@ export class UmlEditor {
       this.insertDocument(jumlyDocuments[i]);
     }
   }
-  
+
   public renderJumlyDocument(): void {
 
     $("div#status").text("ok");
@@ -75,19 +73,19 @@ export class UmlEditor {
       $("div#status").text(ex);
     }
   }
-  
+
   public getDocumentAsImage(callBack: (nativeImage: any) => void): void {
     remote.getCurrentWindow().capturePage(callBack);
   }
-  
+
   public copyToClipboard() {
     var boundingRect: ClientRect = document.getElementById("renderer").getBoundingClientRect();
-    
-    ipc.send("copyToClipboard", 
-      { 
-        "x": boundingRect.left, 
-        "y": boundingRect.top, 
-        "width":boundingRect.width, 
+
+    ipc.send("copyToClipboard",
+      {
+        "x": boundingRect.left,
+        "y": boundingRect.top,
+        "width": boundingRect.width,
         "height": 370 /** FIXME for some reasons height is not set correctly */
       });
   }
