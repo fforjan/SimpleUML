@@ -58,6 +58,13 @@ td.status {
 	max-height: 20px;
 }
 
+.button-full-space {
+	display: block; 
+	width: 100%;
+	padding: 3px;
+	margin: 2px;
+}
+
 .file {
 	color: white;
 	padding: 5px;
