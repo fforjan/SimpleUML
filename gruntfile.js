@@ -7,11 +7,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-typedoc');
     grunt.loadNpmTasks('grunt-tsd');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     
     var packageInfo = grunt.file.readJSON('./package.json');
     
-    var tsSourceFiles = ['application/**/*.ts', 'server.ts'];
-    var packageContentSrcFile = ["package.json", "server.js",'application/**/*', '!**/*.ts'];
+    var tsSourceFiles = ['application/**/*.ts', 'main.ts'];
+    var packageContentSrcFile = ["package.json", "main.js",'application/**/*', '!**/*.ts'];
 
     var electronVersion = 'v' + packageInfo.devDependencies['electron-prebuilt'];
 
@@ -50,6 +51,13 @@ module.exports = function (grunt) {
                         {expand: true, src: packageContentSrcFile, dest: 'dist/windows/resources/app/', filter: 'isFile'}
                     ]
             }
+        },
+        clean: {
+            dist : [ "dist"],
+            docs : [ "docs"],
+            application : ["application/**/*.js" , "main.js" , "!application/**/scripts/*.js"],
+            node : ["node_modules"],
+            typings: ["typings"]
         },
         wget: {
           electronDarwin: {
@@ -123,7 +131,7 @@ module.exports = function (grunt) {
     
     grunt.registerTask('make-dist', ['make-dist-darwin','make-dist-windows']);
     
-    grunt.registerTask('build', ['tsd:refresh', 'typescript'])
+    grunt.registerTask('build', ['tsd:refresh', 'typescript']);
     grunt.registerTask('default', ['build']);
     grunt.registerTask('quality', ['tslint', 'typedoc']);
     grunt.registerTask('travis', ['build', 'quality', 'make-dist']);
